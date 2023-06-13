@@ -1,0 +1,103 @@
+
+<!DOCTYPE html>
+    <boby>
+        <form onsumit="saveToLocalStorage(event)">
+            <label>Name</label>
+            
+            <input type="text" name="username"  required />
+            <label>email</label>
+            <input type = "email" name= "emailid" reduired />
+            <label>phoneno</label>
+            <input type= "tel" name="phoneno"   />
+            <button>Submit </button>
+        </form>
+        <ul id ='listofUsers' ></ul>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.4.0/axios.min.js"></script>
+        <script>
+            function saveToLocalStorage(event){
+             event.preventDefault();
+                const name=event.target.username.value;
+                const email=event.target.emailid.value;
+                const phoneno=event.target.phoneno.value;
+              //  localStorage.setItem('name',name);
+             //  localStorage.setItem('email',email);
+              //  localStorage.setItem('phoneno',phoneno);
+               let obj={
+                name,
+                email,
+                phoneno
+               }
+
+               axios.post("https://crudcrud.com/api/15ce8702bc594617bc06c377ad017f58/data",obj)
+               .then((respone)=>{
+                  showNewUserOnScreen(respone.data)
+                     console.log(respone)
+
+              })
+              .catch((err)=>{
+                console.log(err)
+               })
+
+              // localstorage.setItem(obj.email,JSON.stringify(obj))
+             // showNewUserOnScreen(obj)
+            }
+
+            window.addEventListner("DOMContentLoaded",() =>{
+            axios.get("https://crudcrud.com/api/15ce8702bc594617bc06c377ad017f58/data")
+            .then((respone)=>{
+                  showNewUserOnScreen(respone.data)
+                     console.log(respone)
+                     for(var i=0;i<=respone.data.length;i++){
+                        showNewUserOnScreen(respone.data[i])
+                     }
+
+              })
+              .catch((err)=>{
+                console.log(err)
+              })
+
+                //     const localstorageObj=localstorage;
+                //     const localstoragekeys=Object.keys
+
+                //     for(var i=0;i<=localstoragekeys.length;i++)
+                //     {
+                //         const key=localstoragekeys[i]
+                //         const userDetailsString=localstorageObj[key];
+                //         const userDetailsobj=JSON.parse(userDetailsString)
+                //         showNewUserOnScreen(userDetailsObj)
+                //     }
+                // })
+
+            function showUserOnScreen(obj){
+                const parentElem=document.getElementById('listofItems')
+            
+                const childElem=document.createElement('li')
+                childElem.textContent=obj.name+'   '+   obj.email+'   '+  obj.phoneno
+
+            //    Button.type="button"
+            //     deleteButton.value='Delete'
+            //     deleteButton.onclick=()  =>{
+            //     localstorage.remove(childElem)
+            //     parentElem.removeChild(childElem)
+            //     }
+               
+            //     const editButton=document.createElement('input')
+            //     editButton.type="button"
+            //     editButton.value='Edit'
+            //     editButton.onclick=()  =>{
+            //     localstorage.removeItem(obj.email) const deleteButton=document.createElement('input')
+            //     delete
+               // parentElem.removeChild(childElem)
+                document.getElementById('usernameInputTag').value=obj.name;
+                document.getElementById('emailInputTag').value=obj.email;
+                document.getElementById('phonenoInputTag').value=obj.phoneno;
+            }
+            // childElem.appendChild(deleteButton)
+            // childElem.appendChild(editButton)
+            // parentElem.appendChild(childElem)
+            
+            
+
+        </script>
+    </boby>
+</html>
